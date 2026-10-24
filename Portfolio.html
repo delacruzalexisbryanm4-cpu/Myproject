@@ -1,194 +1,612 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexis | My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>Alexis | IT Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg: #0b1020;
+            --card: #151d33;
+            --primary: #7c5cff;
+            --secondary: #00d4ff;
+            --text: #f4f7ff;
+            --muted: #aab4cc;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 16, 32, 0.95);
+            border-bottom: 1px solid #27304b;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 85px 6%;
+            scroll-margin-top: 70px;
+        }
+
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 35px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .tag {
+            color: var(--secondary);
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 13px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 6vw, 62px);
+            line-height: 1.15;
+            margin: 18px 0;
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        .hero p,
+        .section-text {
+            color: var(--muted);
+            max-width: 650px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            border: 1px solid var(--primary);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px #7c5cff55;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .hero-card {
+            width: 280px;
+            min-width: 230px;
+            padding: 35px 20px;
+            border: 1px solid #343c61;
+            border-radius: 25px;
+            text-align: center;
+            background: linear-gradient(145deg, #1c2545, #11182c);
+            box-shadow: 0 20px 50px #0005;
+        }
+
+        .avatar {
+            width: 115px;
+            height: 115px;
+            margin: auto auto 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .hero-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .section-title {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .section-title span {
+            color: var(--secondary);
+        }
+
+        .section-intro {
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid #283250;
+            border-radius: 14px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .skill {
+            background: #1b2541;
+            border: 1px solid #394568;
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: #dfe6ff;
+        }
+
+        .contact-box {
+            max-width: 650px;
+            margin-top: 25px;
+        }
+
+        .contact-box input,
+        .contact-box textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #35405e;
+            border-radius: 8px;
+            background: var(--card);
+            color: white;
+            font-family: inherit;
+            font-size: 15px;
+        }
+
+        .contact-box input:focus,
+        .contact-box textarea:focus {
+            outline: 2px solid var(--primary);
+        }
+
+        .contact-box textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        #formMessage {
+            color: var(--secondary);
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: var(--muted);
+            border-top: 1px solid #27304b;
+            font-size: 14px;
+        }
+
+        @media (max-width: 750px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                padding: 20px;
+                flex-direction: column;
+                gap: 18px;
+                background: #10172b;
+                border-bottom: 1px solid #27304b;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                padding-top: 60px;
+            }
+
+            .hero-card {
+                width: 100%;
+                max-width: 350px;
+                align-self: center;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 29px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+    <!-- NAVIGATION -->
     <header>
-        <nav class="navbar">
+        <nav>
             <a href="#home" class="logo">ALEXIS<span>.</span></a>
 
             <button class="menu-btn" id="menuBtn"
-            aria-label="Open navigation" aria-expanded="false">
-                ☰
-            </button>
+                aria-label="Open navigation menu"
+                aria-expanded="false">☰</button>
 
-            <div class="nav-links" id="navLinks">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </nav>
     </header>
 
-    <main>
-        <section id="home" class="hero section">
-            <div class="hero-text">
-                <p class="eyebrow">WELCOME TO MY PORTFOLIO</p>
+    <!-- HOME -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="tag">WELCOME TO MY PORTFOLIO</p>
 
-                <h1>Hi, I'm <span>Alexis Bryan.</span></h1>
+            <h1>Hello, I'm <span>Alexis</span></h1>
 
-                <h2>IT Student & Future Developer</h2>
+            <h2>IT Student & Aspiring Developer</h2>
 
-                <p class="description">
-                    I am passionate about technology, programming,
-                    and learning new things. My goal is to build
-                    useful projects and improve my skills every day.
-                </p>
+            <p>
+                I am an Information Technology student who enjoys
+                learning programming, building websites, and exploring
+                new technologies. My goal is to improve my skills and
+                create useful digital projects.
+            </p>
 
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn primary">
-                        Explore My Work ↗
-                    </a>
-
-                    <a href="#contact" class="btn secondary">
-                        Contact Me
-                    </a>
-                </div>
-
-                <p class="small-text">Learning today. Building tomorrow.</p>
+            <div class="buttons">
+                <a href="#projects" class="btn">View My Projects</a>
+                <a href="#contact" class="btn btn-outline">Contact Me</a>
             </div>
+        </div>
 
-            <div class="profile-card">
-                <div class="profile-circle">AB</div>
-                <h3>Alexis Bryan</h3>
-                <p>Information Technology Student</p>
-                <p class="status">● Open to Learning</p>
-            </div>
-        </section>
+        <div class="hero-card">
+            <div class="avatar">A</div>
+            <h2>Alexis</h2>
+            <p>Information Technology Student</p>
+            <p>Learning • Building • Growing</p>
+        </div>
+    </section>
 
-        <section id="about" class="section">
-            <p class="eyebrow">GET TO KNOW ME</p>
-            <h2 class="section-title">About Me</h2>
+    <!-- ABOUT -->
+    <section id="about">
+        <h2 class="section-title">About <span>Me</span></h2>
 
-            <div class="content-card">
-                <h3>Who am I?</h3>
+        <p class="section-intro">
+            Get to know more about me.
+        </p>
 
+        <div class="card">
+            <h3>Who Am I?</h3>
+            <p>
+                I am a student who is interested in computers,
+                programming, and web development. I believe that
+                learning takes time, practice, and patience.
+                I continue to develop my skills through school
+                activities and personal projects.
+            </p>
+            <br>
+            <p>
+                My goal is to become a skilled IT professional
+                and use technology to solve real-world problems.
+            </p>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <h2 class="section-title">My <span>Skills</span></h2>
+
+        <p class="section-intro">
+            Technologies and skills I am learning.
+        </p>
+
+        <div class="skill-list">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">C++</span>
+            <span class="skill">Problem Solving</span>
+            <span class="skill">Communication</span>
+            <span class="skill">Teamwork</span>
+            <span class="skill">Basic Web Design</span>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2 class="section-title">My <span>Projects</span></h2>
+
+        <p class="section-intro">
+            Some projects I have worked on or am currently developing.
+        </p>
+
+        <div class="cards">
+            <div class="card">
+                <h3>01. Student Grade Calculator</h3>
                 <p>
-                    I am an IT student who enjoys learning about
-                    computers, programming, and web development.
-                    I may still be a beginner, but I am willing
-                    to practice, learn from mistakes, and improve.
+                    A C++ console application that stores student
+                    information, calculates grades, and displays
+                    student reports.
                 </p>
+            </div>
 
+            <div class="card">
+                <h3>02. Personal Portfolio</h3>
                 <p>
-                    I believe that consistency and patience are
-                    important in reaching my goals. Every project
-                    gives me a chance to learn something new.
+                    A personal website that introduces me, shows
+                    my skills, and presents my projects.
                 </p>
-
-                <a href="#skills" class="text-link">
-                    Discover My Skills →
-                </a>
             </div>
-        </section>
 
-        <section id="skills" class="section">
-            <p class="eyebrow">WHAT I AM LEARNING</p>
-            <h2 class="section-title">My Skills</h2>
-
-            <div class="card-grid">
-                <div class="content-card">
-                    <div class="card-icon">01</div>
-                    <h3>HTML</h3>
-                    <p>Creating the structure of webpages.</p>
-                </div>
-
-                <div class="content-card">
-                    <div class="card-icon">02</div>
-                    <h3>CSS</h3>
-                    <p>Designing clean and attractive websites.</p>
-                </div>
-
-                <div class="content-card">
-                    <div class="card-icon">03</div>
-                    <h3>C++</h3>
-                    <p>Practicing logic and basic programming.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="section">
-            <p class="eyebrow">WHAT I HAVE CREATED</p>
-            <h2 class="section-title">My Projects</h2>
-
-            <div class="card-grid">
-                <div class="content-card project-card">
-                    <p class="project-number">PROJECT 01</p>
-                    <h3>Student Grade Calculator</h3>
-
-                    <p>
-                        A C++ program that records student
-                        information and calculates grade averages.
-                    </p>
-
-                    <p class="tags">C++ · Arrays · Functions</p>
-                </div>
-
-                <div class="content-card project-card">
-                    <p class="project-number">PROJECT 02</p>
-                    <h3>Personal Portfolio</h3>
-
-                    <p>
-                        A personal website to present my background,
-                        skills, projects, and contact information.
-                    </p>
-
-                    <p class="tags">HTML · CSS · JavaScript</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <p class="eyebrow">LET'S CONNECT</p>
-            <h2 class="section-title">Contact Me</h2>
-
-            <div class="content-card contact-card">
-                <h3>Have something to say?</h3>
-
+            <div class="card">
+                <h3>03. Web Design Practice</h3>
                 <p>
-                    Send me a message using the form below.
-                    I would be happy to hear from you.
+                    Simple website layouts created while learning
+                    HTML, CSS, and JavaScript.
                 </p>
-
-                <form id="contactForm">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name"
-                    placeholder="Enter your name" required>
-
-                    <label for="email">Your Email</label>
-                    <input type="email" id="email"
-                    placeholder="Enter your email" required>
-
-                    <label for="message">Your Message</label>
-                    <textarea id="message"
-                    placeholder="Write your message"
-                    rows="4" required></textarea>
-
-                    <button type="submit" class="btn primary">
-                        Prepare Message ↗
-                    </button>
-                </form>
-
-                <p id="formStatus" aria-live="polite"></p>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2 class="section-title">Contact <span>Me</span></h2>
+
+        <p class="section-intro">
+            Have a question or want to connect? Send me a message.
+        </p>
+
+        <form class="contact-box" id="contactForm">
+            <input
+                type="text"
+                id="name"
+                placeholder="Your Name"
+                required>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Your Email"
+                required>
+
+            <textarea
+                id="message"
+                placeholder="Write your message here..."
+                required></textarea>
+
+            <button type="submit" class="btn">
+                Prepare Email
+            </button>
+
+            <p id="formMessage" role="status"></p>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
-        <a href="#home" class="logo">ALEXIS<span>.</span></a>
-        <p>© 2026 Alexis Bryan. Built with HTML, CSS & JS.</p>
-        <a href="#home" class="text-link">Back to Top ↑</a>
+        <p>
+            &copy; <span id="year"></span> Alexis.
+            Built with HTML, CSS & JavaScript.
+        </p>
     </footer>
+
+    <script>
+        // MOBILE NAVIGATION
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.addEventListener("click", function () {
+            navLinks.classList.toggle("show");
+
+            const isOpen = navLinks.classList.contains("show");
+
+            menuBtn.setAttribute("aria-expanded", isOpen);
+            menuBtn.textContent = isOpen ? "✕" : "☰";
+        });
+
+        // CLOSE MENU AFTER CLICKING A LINK
+        const links = document.querySelectorAll(".nav-links a");
+
+        links.forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("show");
+                menuBtn.textContent = "☰";
+                menuBtn.setAttribute("aria-expanded", "false");
+
+                links.forEach(function (item) {
+                    item.classList.remove("active");
+                });
+
+                link.classList.add("active");
+            });
+        });
+
+        // HIGHLIGHT ACTIVE SECTION
+        const sections = document.querySelectorAll("section");
+
+        window.addEventListener("scroll", function () {
+            let currentSection = "home";
+
+            sections.forEach(function (section) {
+                const sectionTop = section.offsetTop - 120;
+
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.id;
+                }
+            });
+
+            links.forEach(function (link) {
+                link.classList.toggle(
+                    "active",
+                    link.getAttribute("href") === "#" + currentSection
+                );
+            });
+        });
+
+        // CONTACT FORM
+        const contactForm = document.getElementById("contactForm");
+        const formMessage = document.getElementById("formMessage");
+
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (!name || !email || !message) {
+                formMessage.textContent = "Please complete all fields.";
+                return;
+            }
+
+            // Replace with your own email address.
+            const myEmail = "YOUR_EMAIL@example.com";
+
+            if (myEmail === "YOUR_EMAIL@example.com") {
+                formMessage.textContent =
+                    "Please set your email address in the JavaScript first.";
+                return;
+            }
+
+            const subject = encodeURIComponent("Portfolio Message from " + name);
+
+            const body = encodeURIComponent(
+                "Name: " + name +
+                "\nEmail: " + email +
+                "\n\nMessage:\n" + message
+            );
+
+            formMessage.textContent = "Opening your email app...";
+
+            window.location.href =
+                "mailto:" + myEmail +
+                "?subject=" + subject +
+                "&body=" + body;
+        });
+
+        // AUTOMATIC COPYRIGHT YEAR
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+    </script>
 
 </body>
 </html>
+
